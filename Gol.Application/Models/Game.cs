@@ -24,6 +24,7 @@ namespace Gol.Application.Tests
 
         public Result IsValid()
         {
+            if (cells == null) return Result.Failure("No Cells found");
             if (Generation < 1) return Result.Failure("Generation above 1 expected. Found: " + Generation);
             foreach (var cellType in cells)
             {

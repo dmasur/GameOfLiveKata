@@ -49,6 +49,24 @@ namespace Gol.Application.Tests
         }
 
         [Fact]
+        public void InvalidGeneration()
+        {
+
+            var game = new Game(-1, 0, 0, new CellType[0,0]);
+            var result = game.IsValid();
+            Assert.Equal("Generation above 1 expected. Found: -1", result.Error);
+        }
+
+        [Fact]
+        public void InvalidCells()
+        {
+
+            var game = new Game(1, 0, 0, null);
+            var result = game.IsValid();
+            Assert.Equal("No Cells found", result.Error);
+        }
+
+        [Fact]
         public async Task NextGenerationGlider()
         {
             var fileContent = await File.ReadAllLinesAsync("Files/Glider.txt");
