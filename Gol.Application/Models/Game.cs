@@ -12,10 +12,10 @@ namespace Gol.Application.Tests
             this.cells = cells;
         }
 
-        public int Generation { get; private set; }
+        public int Generation { get; }
         public int Width { get; }
         public int Height { get; }
-        private CellType[,] cells;
+        private readonly CellType[,] cells;
 
         public CellType GetCellType(int x, int y)
         {
@@ -32,40 +32,18 @@ namespace Gol.Application.Tests
             return Result.Success();
         }
 
-        public void Tick()
+        public Game GenerateNextGeneration()
         {
-            Generation++;
             var newCells = new CellType[Width, Height];
             for (int x = 0; x < Width; x++)
             {
                 for (int y = 0; y < Height; y++)
                 {
                     var aliveNeighbours = CountAliveNeighbours(x, y);
-                    if (cells[x, y] == CellType.Alive)
-                    {
-                        if (aliveNeighbours < 2 || aliveNeighbours > 3)
-                        {
-                            newCells[x, y] = CellType.Dead;
-                        }
-                        else
-                        {
-                            newCells[x, y] = CellType.Alive;
-                        }
-                    }
-                    if (cells[x, y] == CellType.Dead)
-                    {
-                        if (aliveNeighbours == 3)
-                        {
-                            newCells[x, y] = CellType.Alive;
-                        }
-                        else
-                        {
-                            newCells[x, y] = CellType.Dead;
-                        }
-                    }
+                    newCells[x, y] = CalculateNewCell(cells[x, y], aliveNeighbours);
                 }
             }
-            cells = newCells;
+            return new Game(Generation + 1, Width, Height, newCells);
         }
 
         private int CountAliveNeighbours(int cellX, int cellY)
@@ -73,21 +51,59 @@ namespace Gol.Application.Tests
             var aliveNeighbours = 0;
             for (int x = cellX - 1; x <= cellX + 1; x++)
             {
-                if (x >= 0 && x < Width)
+                for (int y = cellY - 1; y <= cellY + 1; y++)
                 {
-                    for (int y = cellY - 1; y <= cellY + 1; y++)
+                    if (IsValid(x, y))
                     {
-                        if (y >= 0 && y < Height)
+                        var isCurrentCell = cellX == x && cellY == y;
+                        if (IsAlive(x, y) && !isCurrentCell)
                         {
-                            if (cells[x, y] == CellType.Alive && !(cellX == x && cellY == y))
-                            {
-                                aliveNeighbours++;
-                            }
+                            aliveNeighbours++;
                         }
                     }
                 }
             }
             return aliveNeighbours;
+        }
+
+        private bool IsValid(int x, int y)
+        {
+            return x >= 0 && x < Width && y >= 0 && y < Height;
+        }
+
+        private bool IsAlive(int x, int y)
+        {
+            return cells[x, y] == CellType.Alive;
+        }
+
+        private CellType CalculateNewCell(CellType currentCellType, int aliveNeighbours)
+        {
+            if (currentCellType == CellType.Alive)
+            {
+                if (aliveNeighbours < 2 || aliveNeighbours > 3)
+                {
+                    return CellType.Dead;
+                }
+                else
+                {
+                    return CellType.Alive;
+                }
+            }
+            if (currentCellType == CellType.Dead)
+            {
+                if (aliveNeighbours == 3)
+                {
+                    return CellType.Alive;
+                }
+                else
+                {
+                    return CellType.Dead;
+                }
+            }
+            else
+            {
+                return currentCellType;
+            }
         }
     }
 }

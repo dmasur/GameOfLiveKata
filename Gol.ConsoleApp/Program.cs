@@ -30,7 +30,7 @@ namespace Gol.ConsoleApp
                 var inputChar = Console.ReadKey();
                 if (inputChar.KeyChar == ' ')
                 {
-                    game.Tick();
+                    game = game.GenerateNextGeneration();
                     Console.Clear();
                 }
                 else

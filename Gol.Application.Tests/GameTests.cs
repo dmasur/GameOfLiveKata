@@ -39,7 +39,7 @@ namespace Gol.Application.Tests
             var gameResult = parser.ParseGame();
             var game = gameResult.Value;
 
-            game.Tick();
+            game = game.GenerateNextGeneration();
             Assert.Equal(2, game.Generation);
             Assert.True(game.IsValid().IsSuccess);
             Assert.Equal(CellType.Alive, game.GetCellType(3, 1));
@@ -56,7 +56,7 @@ namespace Gol.Application.Tests
             var gameResult = parser.ParseGame();
             var game = gameResult.Value;
 
-            game.Tick();
+            game = game.GenerateNextGeneration();
             Assert.Equal(2, game.Generation);
             Assert.True(game.IsValid().IsSuccess);
             Assert.Equal(CellType.Dead, game.GetCellType(0, 0));
