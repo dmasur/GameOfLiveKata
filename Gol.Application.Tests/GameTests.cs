@@ -18,6 +18,18 @@ namespace Gol.Application.Tests
         }
 
         [Fact]
+        public void IsValidFailWithInvalidCellType()
+        {
+            var game = new Game(1, 0, 0, new CellType[,] { { CellType.Unknown } });
+
+            Assert.Equal(1, game.Generation);
+            Assert.Equal(0, game.Width);
+            Assert.Equal(0, game.Height);
+            Assert.True(game.IsValid().IsFailure);
+            Assert.Equal("Wrong CellType found: Unknown", game.IsValid().Error);
+        }
+
+        [Fact]
         public async Task IsValidWithInput1()
         {
             var fileContent = await File.ReadAllLinesAsync("Files/Input1.txt");

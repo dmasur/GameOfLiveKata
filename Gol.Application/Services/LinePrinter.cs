@@ -1,27 +1,30 @@
 ﻿using Gol.Application.Tests;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Gol.Application.Services
 {
     public class LinePrinter
     {
-        public string GetLines(Game game)
+        public List<string> GetLines(Game game)
         {
-            var stringBuilder = new StringBuilder();
-
-            stringBuilder.AppendLine($"Generation {game.Generation}:");
-            stringBuilder.AppendLine($"{game.Height} {game.Width}");
+            var lines = new List<string>()
+            {
+                $"Generation {game.Generation}:",
+                $"{game.Height} {game.Width}"
+            };
             for (int y = 0; y < game.Height; y++)
             {
+                var line = "";
                 for (int x = 0; x < game.Width; x++)
                 {
                     var cellType = game.GetCellType(x, y);
                     var cellChar = GetCellChar(cellType);
-                    stringBuilder.Append(cellChar);
+                    line += cellChar;
                 }
-                stringBuilder.AppendLine();
+                lines.Add(line);
             }
-            return stringBuilder.ToString();
+            return lines;
         }
 
         private static char GetCellChar(CellType cellType)

@@ -43,7 +43,10 @@ namespace Gol.ConsoleApp
         private static void PrintGame(Game game, LinePrinter linePrinter)
         {
             var lines = linePrinter.GetLines(game);
-            Console.WriteLine(lines);
+            foreach (var line in lines)
+            {
+                Console.WriteLine(line);
+            }
         }
     }
 }
