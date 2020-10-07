@@ -35,7 +35,7 @@ namespace Gol.Application.Tests
         public void Tick()
         {
             Generation++;
-            var newCells = new CellType[Width, Height]; 
+            var newCells = new CellType[Width, Height];
             for (int x = 0; x < Width; x++)
             {
                 for (int y = 0; y < Height; y++)
@@ -77,9 +77,9 @@ namespace Gol.Application.Tests
                 {
                     for (int y = cellY - 1; y <= cellY + 1; y++)
                     {
-                        if (y>=0 && y < Height)
+                        if (y >= 0 && y < Height)
                         {
-                            if(cells[x,y] == CellType.Alive && !(cellX == x && cellY == y))
+                            if (cells[x, y] == CellType.Alive && !(cellX == x && cellY == y))
                             {
                                 aliveNeighbours++;
                             }

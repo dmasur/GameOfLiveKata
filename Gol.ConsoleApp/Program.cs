@@ -8,7 +8,7 @@ namespace Gol.ConsoleApp
     {
         static void Main(string[] args)
         {
-            if(args.Length == 0)
+            if (args.Length == 0)
             {
                 Console.WriteLine("No Input found");
                 return;
