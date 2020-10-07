@@ -54,7 +54,7 @@ namespace Gol.Application.Tests
                 {
                     var cellChar = fileContent[y + 2][x];
                     var cellType = ParseCellType(cellChar);
-                    if(cellType == CellType.Unknown)
+                    if (cellType == CellType.Unknown)
                     {
                         return Result.Failure<CellType[,]>($"Invalid CellType found in Cell ({x},{y}): {cellChar}");
                     }
@@ -70,8 +70,10 @@ namespace Gol.Application.Tests
             {
                 case '.':
                     return CellType.Dead;
+
                 case '*':
                     return CellType.Alive;
+
                 default:
                     return CellType.Unknown;
             }
@@ -88,7 +90,7 @@ namespace Gol.Application.Tests
                 var actualWidth = fileContent[i].Length;
                 if (actualWidth != width)
                 {
-                    return Result.Failure<int>($"Wrong width in line {i-2}: {actualWidth} found, but {width} expected");
+                    return Result.Failure<int>($"Wrong width in line {i - 2}: {actualWidth} found, but {width} expected");
                 }
             }
             return Result.Success(width);

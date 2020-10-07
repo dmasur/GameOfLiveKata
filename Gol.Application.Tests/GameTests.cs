@@ -63,8 +63,7 @@ namespace Gol.Application.Tests
         [Fact]
         public void InvalidGeneration()
         {
-
-            var game = new Game(-1, 0, 0, new CellType[0,0]);
+            var game = new Game(-1, 0, 0, new CellType[0, 0]);
             var result = game.IsValid();
             Assert.Equal("Generation above 1 expected. Found: -1", result.Error);
         }
@@ -72,7 +71,6 @@ namespace Gol.Application.Tests
         [Fact]
         public void InvalidCells()
         {
-
             var game = new Game(1, 0, 0, null);
             var result = game.IsValid();
             Assert.Equal("No Cells found", result.Error);
