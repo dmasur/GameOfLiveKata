@@ -1,5 +1,4 @@
 ﻿using CSharpFunctionalExtensions;
-using System;
 using System.Text.RegularExpressions;
 
 namespace Gol.Application.Tests

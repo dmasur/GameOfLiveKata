@@ -1,6 +1,5 @@
 ﻿using Gol.Application.Tests;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Gol.Application.Services
 {
