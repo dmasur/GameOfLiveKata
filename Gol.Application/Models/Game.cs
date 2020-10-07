@@ -54,17 +54,20 @@ namespace Gol.Application.Tests
             {
                 for (int y = cellY - 1; y <= cellY + 1; y++)
                 {
-                    if (IsValid(x, y))
+                    if (IsValidAndAliveNeigbour(x, y, cellX, cellY))
                     {
-                        var isCurrentCell = cellX == x && cellY == y;
-                        if (IsAlive(x, y) && !isCurrentCell)
-                        {
-                            aliveNeighbours++;
-                        }
+                        aliveNeighbours++;
                     }
                 }
             }
+
             return aliveNeighbours;
+        }
+
+        private bool IsValidAndAliveNeigbour(int x, int y, int cellX, int cellY)
+        {
+            var isCurrentCell = cellX == x && cellY == y;
+            return !isCurrentCell && IsValid(x, y) && IsAlive(x, y);
         }
 
         private bool IsValid(int x, int y)
@@ -79,31 +82,30 @@ namespace Gol.Application.Tests
 
         private CellType CalculateNewCell(CellType currentCellType, int aliveNeighbours)
         {
-            if (currentCellType == CellType.Alive)
+            switch (currentCellType)
             {
-                if (aliveNeighbours < 2 || aliveNeighbours > 3)
-                {
-                    return CellType.Dead;
-                }
-                else
-                {
-                    return CellType.Alive;
-                }
-            }
-            if (currentCellType == CellType.Dead)
-            {
-                if (aliveNeighbours == 3)
-                {
-                    return CellType.Alive;
-                }
-                else
-                {
-                    return CellType.Dead;
-                }
-            }
-            else
-            {
-                return currentCellType;
+                case CellType.Alive:
+                    switch (aliveNeighbours)
+                    {
+                        case 2:
+                        case 3:
+                            return CellType.Alive;
+
+                        default:
+                            return CellType.Dead;
+                    }
+
+                case CellType.Dead:
+                    switch (aliveNeighbours)
+                    {
+                        case 3:
+                            return CellType.Alive;
+
+                        default:
+                            return CellType.Dead;
+                    }
+                default:
+                    return currentCellType;
             }
         }
     }
