@@ -47,5 +47,53 @@ namespace Gol.Application.Tests
             Assert.Equal(CellType.Alive, game.GetCellType(4, 1));
             Assert.Equal(CellType.Alive, game.GetCellType(4, 2));
         }
+
+        [Fact]
+        public async Task NextGenerationGlider()
+        {
+            var fileContent = await File.ReadAllLinesAsync("Files/Glider.txt");
+            var parser = new Parser(fileContent);
+            var gameResult = parser.ParseGame();
+            var game = gameResult.Value;
+
+            game.Tick();
+            Assert.Equal(2, game.Generation);
+            Assert.True(game.IsValid().IsSuccess);
+            Assert.Equal(CellType.Dead, game.GetCellType(0, 0));
+            Assert.Equal(CellType.Dead, game.GetCellType(1, 0));
+            Assert.Equal(CellType.Dead, game.GetCellType(2, 0));
+            Assert.Equal(CellType.Dead, game.GetCellType(3, 0));
+            Assert.Equal(CellType.Dead, game.GetCellType(4, 0));
+            Assert.Equal(CellType.Dead, game.GetCellType(5, 0));
+            Assert.Equal(CellType.Dead, game.GetCellType(6, 0));
+            Assert.Equal(CellType.Dead, game.GetCellType(7, 0));
+
+            Assert.Equal(CellType.Alive, game.GetCellType(0, 1));
+            Assert.Equal(CellType.Dead, game.GetCellType(1, 1));
+            Assert.Equal(CellType.Alive, game.GetCellType(2, 1));
+            Assert.Equal(CellType.Dead, game.GetCellType(3, 1));
+            Assert.Equal(CellType.Dead, game.GetCellType(4, 1));
+            Assert.Equal(CellType.Dead, game.GetCellType(5, 1));
+            Assert.Equal(CellType.Dead, game.GetCellType(6, 1));
+            Assert.Equal(CellType.Dead, game.GetCellType(7, 1));
+
+            Assert.Equal(CellType.Dead, game.GetCellType(0, 2));
+            Assert.Equal(CellType.Alive, game.GetCellType(1, 2));
+            Assert.Equal(CellType.Alive, game.GetCellType(2, 2));
+            Assert.Equal(CellType.Dead, game.GetCellType(3, 2));
+            Assert.Equal(CellType.Dead, game.GetCellType(4, 2));
+            Assert.Equal(CellType.Dead, game.GetCellType(5, 2));
+            Assert.Equal(CellType.Dead, game.GetCellType(6, 2));
+            Assert.Equal(CellType.Dead, game.GetCellType(7, 2));
+
+            Assert.Equal(CellType.Dead, game.GetCellType(0, 3));
+            Assert.Equal(CellType.Alive, game.GetCellType(1, 3));
+            Assert.Equal(CellType.Dead, game.GetCellType(2, 3));
+            Assert.Equal(CellType.Dead, game.GetCellType(3, 3));
+            Assert.Equal(CellType.Dead, game.GetCellType(4, 3));
+            Assert.Equal(CellType.Dead, game.GetCellType(5, 3));
+            Assert.Equal(CellType.Dead, game.GetCellType(6, 3));
+            Assert.Equal(CellType.Dead, game.GetCellType(7, 3));
+        }
     }
 }

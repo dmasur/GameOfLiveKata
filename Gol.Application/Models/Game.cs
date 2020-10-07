@@ -79,7 +79,7 @@ namespace Gol.Application.Tests
                     {
                         if (y>=0 && y < Height)
                         {
-                            if(cells[x,y] == CellType.Alive)
+                            if(cells[x,y] == CellType.Alive && !(cellX == x && cellY == y))
                             {
                                 aliveNeighbours++;
                             }

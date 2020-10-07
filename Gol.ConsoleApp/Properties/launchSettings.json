@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Gol.ConsoleApp": {
+      "commandName": "Project",
+      "commandLineArgs": "Files/Input1.txt"
+    }
+  }
+}
