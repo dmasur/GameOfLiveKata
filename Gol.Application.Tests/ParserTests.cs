@@ -22,6 +22,17 @@ namespace Gol.Application.Tests
         }
 
         [Fact]
+        public async Task Generation100()
+        {
+            var fileContent = await File.ReadAllLinesAsync("Files/Generation100.txt");
+            var parser = new Parser(fileContent);
+            var gameResult = parser.ParseGame();
+            var game = gameResult.Value;
+
+            Assert.Equal(100, game.Generation);
+        }
+
+        [Fact]
         public async Task EmptyInput()
         {
             var fileContent = await File.ReadAllLinesAsync("Files/EmptyInput.txt");

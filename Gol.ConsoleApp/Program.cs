@@ -1,4 +1,5 @@
-﻿using Gol.Application.Tests;
+﻿using Gol.Application.Services;
+using Gol.Application.Tests;
 using System;
 using System.IO;
 
@@ -22,9 +23,10 @@ namespace Gol.ConsoleApp
                 return;
             }
             var game = gameResult.Value;
+            var linePrinter = new LinePrinter();
             while (true)
             {
-                PrintGame(game);
+                PrintGame(game, linePrinter);
                 var inputChar = Console.ReadKey();
                 if (inputChar.KeyChar == ' ')
                 {
@@ -38,39 +40,10 @@ namespace Gol.ConsoleApp
             }
         }
 
-        private static void PrintGame(Game game)
+        private static void PrintGame(Game game, LinePrinter linePrinter)
         {
-            Console.WriteLine($"Generation {game.Generation}:");
-            Console.WriteLine($"{game.Height} {game.Width}");
-            for (int y = 0; y < game.Height; y++)
-            {
-                for (int x = 0; x < game.Width; x++)
-                {
-                    var cellType = game.GetCellType(x, y);
-                    var cellChar = GetCellChar(cellType);
-                    Console.Write(cellChar);
-                }
-                Console.WriteLine();
-            }
-        }
-
-        private static char GetCellChar(CellType cellType)
-        {
-            switch (cellType)
-            {
-                case CellType.Alive:
-                    {
-                        return '*';
-                    }
-                case CellType.Dead:
-                    {
-                        return '.';
-                    }
-                default:
-                    {
-                        return '?';
-                    }
-            }
+            var lines = linePrinter.GetLines(game);
+            Console.WriteLine(lines);
         }
     }
 }

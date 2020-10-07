@@ -115,7 +115,7 @@ namespace Gol.Application.Tests
             {
                 return Result.Failure<int>("No Generationline found");
             }
-            var generationMatch = Regex.Match(fileContent[0], @"Generation (\d):");
+            var generationMatch = Regex.Match(fileContent[0], @"Generation (\d*):");
             if (!generationMatch.Success)
             {
                 return Result.Failure<int>("Generation not found");
