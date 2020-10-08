@@ -4,7 +4,7 @@ namespace Gol.Application.Tests
 {
     public class Game
     {
-        public Game(int generation, int width, int height, CellType[,] cells)
+        private Game(int generation, int width, int height, CellType[,] cells)
         {
             Generation = generation;
             Width = width;
@@ -12,25 +12,28 @@ namespace Gol.Application.Tests
             this.cells = cells;
         }
 
+        public static Result<Game> CreateGame(int generation, int width, int height, CellType[,] cells)
+        {
+            var game = new Game(generation, width, height, cells);
+            return ValidateGame(game);
+        }
+
         public int Generation { get; }
         public int Width { get; }
         public int Height { get; }
         private readonly CellType[,] cells;
 
-        public CellType GetCellType(int x, int y)
-        {
-            return cells[x, y];
-        }
+        public CellType GetCellType(int x, int y) => cells[x, y];
 
-        public Result IsValid()
+        private static Result<Game> ValidateGame(Game game)
         {
-            if (cells == null) return Result.Failure("No Cells found");
-            if (Generation < 1) return Result.Failure("Generation above 1 expected. Found: " + Generation);
-            foreach (var cellType in cells)
+            if (game.cells == null) return Result.Failure<Game>("No Cells found");
+            if (game.Generation < 1) return Result.Failure<Game>("Generation above 1 expected. Found: " + game.Generation);
+            foreach (var cellType in game.cells)
             {
-                if (cellType == CellType.Unknown) return Result.Failure("Wrong CellType found: " + cellType);
+                if (cellType == CellType.Unknown) return Result.Failure<Game>("Wrong CellType found: " + cellType);
             }
-            return Result.Success();
+            return Result.Success(game);
         }
 
         public Game GenerateNextGeneration()
@@ -40,8 +43,7 @@ namespace Gol.Application.Tests
             {
                 for (int y = 0; y < Height; y++)
                 {
-                    var aliveNeighbours = CountAliveNeighbours(x, y);
-                    newCells[x, y] = CalculateNewCell(cells[x, y], aliveNeighbours);
+                    newCells[x, y] = CalculateNewCell(cells[x, y], CountAliveNeighbours(x, y));
                 }
             }
             return new Game(Generation + 1, Width, Height, newCells);
@@ -82,30 +84,16 @@ namespace Gol.Application.Tests
 
         private CellType CalculateNewCell(CellType currentCellType, int aliveNeighbours)
         {
-            switch (currentCellType)
+            switch (aliveNeighbours)
             {
-                case CellType.Alive:
-                    switch (aliveNeighbours)
-                    {
-                        case 2:
-                        case 3:
-                            return CellType.Alive;
+                case 2:
+                    return currentCellType == CellType.Alive ? CellType.Alive : CellType.Dead;
 
-                        default:
-                            return CellType.Dead;
-                    }
+                case 3:
+                    return CellType.Alive;
 
-                case CellType.Dead:
-                    switch (aliveNeighbours)
-                    {
-                        case 3:
-                            return CellType.Alive;
-
-                        default:
-                            return CellType.Dead;
-                    }
                 default:
-                    return currentCellType;
+                    return CellType.Dead;
             }
         }
     }

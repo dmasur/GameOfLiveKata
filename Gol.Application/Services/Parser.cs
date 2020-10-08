@@ -41,8 +41,7 @@ namespace Gol.Application.Tests
                 return cellsResult.ConvertFailure<Game>();
             }
             var cells = cellsResult.Value;
-
-            return new Game(generation, width, height, cells);
+            return Game.CreateGame(generation, width, height, cells);
         }
 
         private Result<CellType[,]> GetCells(int width, int height)
