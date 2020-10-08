@@ -1,4 +1,5 @@
-﻿using Gol.Application.Tests;
+﻿using Gol.Application.Enums;
+using Gol.Application.Models;
 using System.Collections.Generic;
 
 namespace Gol.Application.Services

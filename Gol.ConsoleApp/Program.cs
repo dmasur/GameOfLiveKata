@@ -1,5 +1,5 @@
-﻿using Gol.Application.Services;
-using Gol.Application.Tests;
+﻿using Gol.Application.Models;
+using Gol.Application.Services;
 using System;
 using System.IO;
 

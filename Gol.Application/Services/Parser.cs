@@ -1,7 +1,9 @@
 ﻿using CSharpFunctionalExtensions;
+using Gol.Application.Enums;
+using Gol.Application.Models;
 using System.Text.RegularExpressions;
 
-namespace Gol.Application.Tests
+namespace Gol.Application.Services
 {
     public class Parser
     {

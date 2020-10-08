@@ -1,6 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
+using Gol.Application.Enums;
 
-namespace Gol.Application.Tests
+namespace Gol.Application.Models
 {
     public class Game
     {

@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using Gol.Application.Enums;
+using Gol.Application.Models;
+using Gol.Application.Services;
+using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 

@@ -1,4 +1,4 @@
-﻿namespace Gol.Application.Tests
+﻿namespace Gol.Application.Enums
 {
     public enum CellType
     {
