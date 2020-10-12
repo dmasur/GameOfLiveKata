@@ -65,7 +65,7 @@ namespace Gol.Application.Services
             return Result.Success(cells);
         }
 
-        private CellType ParseCellType(char cellChar)
+        private static CellType ParseCellType(char cellChar)
         {
             switch (cellChar)
             {

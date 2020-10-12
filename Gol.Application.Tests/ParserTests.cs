@@ -9,7 +9,7 @@ namespace Gol.Application.Tests
     public class ParserTests
     {
         [Fact]
-        public async Task Input1()
+        public async Task Input1Async()
         {
             var fileContent = await File.ReadAllLinesAsync("Files/Input1.txt");
             var parser = new Parser(fileContent);
@@ -24,7 +24,7 @@ namespace Gol.Application.Tests
         }
 
         [Fact]
-        public async Task Generation100()
+        public async Task Generation100Async()
         {
             var fileContent = await File.ReadAllLinesAsync("Files/Generation100.txt");
             var parser = new Parser(fileContent);
@@ -35,7 +35,7 @@ namespace Gol.Application.Tests
         }
 
         [Fact]
-        public async Task EmptyInput()
+        public async Task EmptyInputAsync()
         {
             var fileContent = await File.ReadAllLinesAsync("Files/EmptyInput.txt");
             var parser = new Parser(fileContent);
@@ -45,7 +45,7 @@ namespace Gol.Application.Tests
         }
 
         [Fact]
-        public async Task InvalidGeneration()
+        public async Task InvalidGenerationAsync()
         {
             var fileContent = await File.ReadAllLinesAsync("Files/InvalidGeneration.txt");
             var parser = new Parser(fileContent);
@@ -55,7 +55,7 @@ namespace Gol.Application.Tests
         }
 
         [Fact]
-        public async Task InvalidGeneration2()
+        public async Task InvalidGeneration2Async()
         {
             var fileContent = await File.ReadAllLinesAsync("Files/InvalidGeneration 2.txt");
             var parser = new Parser(fileContent);
@@ -65,7 +65,7 @@ namespace Gol.Application.Tests
         }
 
         [Fact]
-        public async Task WrongWidthTooBig()
+        public async Task WrongWidthTooBigAsync()
         {
             var fileContent = await File.ReadAllLinesAsync("Files/WrongWidthTooBig.txt");
             var parser = new Parser(fileContent);
@@ -75,7 +75,7 @@ namespace Gol.Application.Tests
         }
 
         [Fact]
-        public async Task WrongHeightTooBig()
+        public async Task WrongHeightTooBigAsync()
         {
             var fileContent = await File.ReadAllLinesAsync("Files/WrongHeightTooBig.txt");
             var parser = new Parser(fileContent);
@@ -85,7 +85,7 @@ namespace Gol.Application.Tests
         }
 
         [Fact]
-        public async Task InvalidChar()
+        public async Task InvalidCharAsync()
         {
             var fileContent = await File.ReadAllLinesAsync("Files/InvalidChar.txt");
             var parser = new Parser(fileContent);

@@ -23,10 +23,9 @@ namespace Gol.ConsoleApp
                 return;
             }
             var game = gameResult.Value;
-            var linePrinter = new LinePrinter();
             while (true)
             {
-                PrintGame(game, linePrinter);
+                PrintGame(game);
                 var inputChar = Console.ReadKey();
                 if (inputChar.KeyChar == ' ')
                 {
@@ -40,9 +39,9 @@ namespace Gol.ConsoleApp
             }
         }
 
-        private static void PrintGame(Game game, LinePrinter linePrinter)
+        private static void PrintGame(Game game)
         {
-            var lines = linePrinter.GetLines(game);
+            var lines = LinePrinter.GetLines(game);
             foreach (var line in lines)
             {
                 Console.WriteLine(line);

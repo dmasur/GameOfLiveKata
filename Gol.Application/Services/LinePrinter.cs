@@ -1,28 +1,29 @@
 ﻿using Gol.Application.Enums;
 using Gol.Application.Models;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Gol.Application.Services
 {
     public class LinePrinter
     {
-        public List<string> GetLines(Game game)
+        public static List<string> GetLines(Game game)
         {
-            var lines = new List<string>()
+            var lines = new List<string>
             {
                 $"Generation {game.Generation}:",
                 $"{game.Height} {game.Width}"
             };
             for (int y = 0; y < game.Height; y++)
             {
-                var line = "";
+                var builder = new StringBuilder();
                 for (int x = 0; x < game.Width; x++)
                 {
                     var cellType = game.GetCellType(x, y);
                     var cellChar = GetCellChar(cellType);
-                    line += cellChar;
+                    builder.Append(cellChar);
                 }
-                lines.Add(line);
+                lines.Add(builder.ToString());
             }
             return lines;
         }

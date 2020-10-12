@@ -83,7 +83,7 @@ namespace Gol.Application.Models
             return cells[x, y] == CellType.Alive;
         }
 
-        private CellType CalculateNewCell(CellType currentCellType, int aliveNeighbours)
+        private static CellType CalculateNewCell(CellType currentCellType, int aliveNeighbours)
         {
             switch (aliveNeighbours)
             {

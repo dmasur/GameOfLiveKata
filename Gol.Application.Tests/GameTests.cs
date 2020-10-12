@@ -29,7 +29,7 @@ namespace Gol.Application.Tests
         }
 
         [Fact]
-        public async Task IsValidWithInput1()
+        public async Task IsValidWithInput1Async()
         {
             var fileContent = await File.ReadAllLinesAsync("Files/Input1.txt");
             var parser = new Parser(fileContent);
@@ -42,7 +42,7 @@ namespace Gol.Application.Tests
         }
 
         [Fact]
-        public async Task NextGeneration()
+        public async Task NextGenerationAsync()
         {
             var fileContent = await File.ReadAllLinesAsync("Files/Input1.txt");
             var parser = new Parser(fileContent);
@@ -72,7 +72,7 @@ namespace Gol.Application.Tests
         }
 
         [Fact]
-        public async Task NextGenerationGlider()
+        public async Task NextGenerationGliderAsync()
         {
             var fileContent = await File.ReadAllLinesAsync("Files/Glider.txt");
             var parser = new Parser(fileContent);
