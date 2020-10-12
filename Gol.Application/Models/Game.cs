@@ -85,17 +85,12 @@ namespace Gol.Application.Models
 
         private static CellType CalculateNewCell(CellType currentCellType, int aliveNeighbours)
         {
-            switch (aliveNeighbours)
+            return aliveNeighbours switch
             {
-                case 2:
-                    return currentCellType == CellType.Alive ? CellType.Alive : CellType.Dead;
-
-                case 3:
-                    return CellType.Alive;
-
-                default:
-                    return CellType.Dead;
-            }
+                2 => currentCellType == CellType.Alive ? CellType.Alive : CellType.Dead,
+                3 => CellType.Alive,
+                _ => CellType.Dead,
+            };
         }
     }
 }

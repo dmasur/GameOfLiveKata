@@ -67,17 +67,12 @@ namespace Gol.Application.Services
 
         private static CellType ParseCellType(char cellChar)
         {
-            switch (cellChar)
+            return cellChar switch
             {
-                case '.':
-                    return CellType.Dead;
-
-                case '*':
-                    return CellType.Alive;
-
-                default:
-                    return CellType.Unknown;
-            }
+                '.' => CellType.Dead,
+                '*' => CellType.Alive,
+                _ => CellType.Unknown,
+            };
         }
 
         private Result<int> GetWidth()
