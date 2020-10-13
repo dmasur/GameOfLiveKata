@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Gol.Application.Services
 {
-    public class LinePrinter
+    public static class LinePrinter
     {
         public static List<string> GetLines(Game game)
         {
@@ -40,6 +40,8 @@ namespace Gol.Application.Services
                     {
                         return '.';
                     }
+
+                case CellType.Unknown:
                 default:
                     {
                         return '?';
