@@ -10,6 +10,20 @@ namespace Gol.Application.Tests
     public class GameTests
     {
         [Fact]
+        public void InvalidCells()
+        {
+            var gameResult = Game.CreateGame(1, 0, 0, null);
+            Assert.Equal("No Cells found", gameResult.Error);
+        }
+
+        [Fact]
+        public void InvalidGeneration()
+        {
+            var gameResult = Game.CreateGame(-1, 0, 0, new CellType[0, 0]);
+            Assert.Equal("Generation above 1 expected. Found: -1", gameResult.Error);
+        }
+
+        [Fact]
         public void IsValidEmptySuccess()
         {
             var game = Game.CreateGame(1, 0, 0, new CellType[,] { }).Value;
@@ -55,20 +69,6 @@ namespace Gol.Application.Tests
             Assert.Equal(CellType.Alive, game.GetCellType(3, 2));
             Assert.Equal(CellType.Alive, game.GetCellType(4, 1));
             Assert.Equal(CellType.Alive, game.GetCellType(4, 2));
-        }
-
-        [Fact]
-        public void InvalidGeneration()
-        {
-            var gameResult = Game.CreateGame(-1, 0, 0, new CellType[0, 0]);
-            Assert.Equal("Generation above 1 expected. Found: -1", gameResult.Error);
-        }
-
-        [Fact]
-        public void InvalidCells()
-        {
-            var gameResult = Game.CreateGame(1, 0, 0, null);
-            Assert.Equal("No Cells found", gameResult.Error);
         }
 
         [Fact]

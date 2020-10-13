@@ -46,6 +46,16 @@ namespace Gol.Application.Services
             return Game.CreateGame(generation, width, height, cells);
         }
 
+        private static CellType ParseCellType(char cellChar)
+        {
+            return cellChar switch
+            {
+                '.' => CellType.Dead,
+                '*' => CellType.Alive,
+                _ => CellType.Unknown,
+            };
+        }
+
         private Result<CellType[,]> GetCells(int width, int height)
         {
             var cells = new CellType[width, height];
@@ -63,47 +73,6 @@ namespace Gol.Application.Services
                 }
             }
             return Result.Success(cells);
-        }
-
-        private static CellType ParseCellType(char cellChar)
-        {
-            return cellChar switch
-            {
-                '.' => CellType.Dead,
-                '*' => CellType.Alive,
-                _ => CellType.Unknown,
-            };
-        }
-
-        private Result<int> GetWidth()
-        {
-            var generationMatch = Regex.Match(fileContent[1], @"(\d) (\d)");
-            var widthString = generationMatch.Groups[2].Value;
-            var width = int.Parse(widthString);
-
-            for (int i = 2; i < fileContent.Length; i++)
-            {
-                var actualWidth = fileContent[i].Length;
-                if (actualWidth != width)
-                {
-                    return Result.Failure<int>($"Wrong width in line {i - 2}: {actualWidth} found, but {width} expected");
-                }
-            }
-            return Result.Success(width);
-        }
-
-        private Result<int> GetHeigth()
-        {
-            var generationMatch = Regex.Match(fileContent[1], @"(\d) (\d)");
-            var heightString = generationMatch.Groups[1].Value;
-            var height = int.Parse(heightString);
-
-            var actualheight = fileContent.Length - 2;
-            if (actualheight != height)
-            {
-                return Result.Failure<int>($"Wrong height: {actualheight} found, but {height} expected");
-            }
-            return Result.Success(height);
         }
 
         private Result<int> GetGeneration()
@@ -124,6 +93,37 @@ namespace Gol.Application.Services
                 return Result.Failure<int>("Generation must be 1 or higher");
             }
             return Result.Success(generation);
+        }
+
+        private Result<int> GetHeigth()
+        {
+            var generationMatch = Regex.Match(fileContent[1], @"(\d) (\d)");
+            var heightString = generationMatch.Groups[1].Value;
+            var height = int.Parse(heightString);
+
+            var actualheight = fileContent.Length - 2;
+            if (actualheight != height)
+            {
+                return Result.Failure<int>($"Wrong height: {actualheight} found, but {height} expected");
+            }
+            return Result.Success(height);
+        }
+
+        private Result<int> GetWidth()
+        {
+            var generationMatch = Regex.Match(fileContent[1], @"(\d) (\d)");
+            var widthString = generationMatch.Groups[2].Value;
+            var width = int.Parse(widthString);
+
+            for (int i = 2; i < fileContent.Length; i++)
+            {
+                var actualWidth = fileContent[i].Length;
+                if (actualWidth != width)
+                {
+                    return Result.Failure<int>($"Wrong width in line {i - 2}: {actualWidth} found, but {width} expected");
+                }
+            }
+            return Result.Success(width);
         }
     }
 }

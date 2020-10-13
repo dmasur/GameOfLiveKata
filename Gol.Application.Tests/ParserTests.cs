@@ -9,6 +9,27 @@ namespace Gol.Application.Tests
     public class ParserTests
     {
         [Fact]
+        public async Task EmptyInputAsync()
+        {
+            var fileContent = await File.ReadAllLinesAsync("Files/EmptyInput.txt");
+            var parser = new Parser(fileContent);
+            var gameResult = parser.ParseGame();
+
+            Assert.Equal("No Generationline found", gameResult.Error);
+        }
+
+        [Fact]
+        public async Task Generation100Async()
+        {
+            var fileContent = await File.ReadAllLinesAsync("Files/Generation100.txt");
+            var parser = new Parser(fileContent);
+            var gameResult = parser.ParseGame();
+            var game = gameResult.Value;
+
+            Assert.Equal(100, game.Generation);
+        }
+
+        [Fact]
         public async Task Input1Async()
         {
             var fileContent = await File.ReadAllLinesAsync("Files/Input1.txt");
@@ -24,34 +45,13 @@ namespace Gol.Application.Tests
         }
 
         [Fact]
-        public async Task Generation100Async()
+        public async Task InvalidCharAsync()
         {
-            var fileContent = await File.ReadAllLinesAsync("Files/Generation100.txt");
-            var parser = new Parser(fileContent);
-            var gameResult = parser.ParseGame();
-            var game = gameResult.Value;
-
-            Assert.Equal(100, game.Generation);
-        }
-
-        [Fact]
-        public async Task EmptyInputAsync()
-        {
-            var fileContent = await File.ReadAllLinesAsync("Files/EmptyInput.txt");
+            var fileContent = await File.ReadAllLinesAsync("Files/InvalidChar.txt");
             var parser = new Parser(fileContent);
             var gameResult = parser.ParseGame();
 
-            Assert.Equal("No Generationline found", gameResult.Error);
-        }
-
-        [Fact]
-        public async Task InvalidGenerationAsync()
-        {
-            var fileContent = await File.ReadAllLinesAsync("Files/InvalidGeneration.txt");
-            var parser = new Parser(fileContent);
-            var gameResult = parser.ParseGame();
-
-            Assert.Equal("Generation not found", gameResult.Error);
+            Assert.Equal("Invalid CellType found in Cell (0,0): a", gameResult.Error);
         }
 
         [Fact]
@@ -65,13 +65,13 @@ namespace Gol.Application.Tests
         }
 
         [Fact]
-        public async Task WrongWidthTooBigAsync()
+        public async Task InvalidGenerationAsync()
         {
-            var fileContent = await File.ReadAllLinesAsync("Files/WrongWidthTooBig.txt");
+            var fileContent = await File.ReadAllLinesAsync("Files/InvalidGeneration.txt");
             var parser = new Parser(fileContent);
             var gameResult = parser.ParseGame();
 
-            Assert.Equal("Wrong width in line 0: 8 found, but 9 expected", gameResult.Error);
+            Assert.Equal("Generation not found", gameResult.Error);
         }
 
         [Fact]
@@ -85,13 +85,13 @@ namespace Gol.Application.Tests
         }
 
         [Fact]
-        public async Task InvalidCharAsync()
+        public async Task WrongWidthTooBigAsync()
         {
-            var fileContent = await File.ReadAllLinesAsync("Files/InvalidChar.txt");
+            var fileContent = await File.ReadAllLinesAsync("Files/WrongWidthTooBig.txt");
             var parser = new Parser(fileContent);
             var gameResult = parser.ParseGame();
 
-            Assert.Equal("Invalid CellType found in Cell (0,0): a", gameResult.Error);
+            Assert.Equal("Wrong width in line 0: 8 found, but 9 expected", gameResult.Error);
         }
     }
 }

@@ -1,0 +1,10 @@
+# NOTE: Requires **VS2019 16.3** or later
+
+# My Rules
+# Description: rules.ruleset
+
+# Code files
+[*.{cs,vb}]
+
+
+dotnet_diagnostic.RCS1090.severity = none
